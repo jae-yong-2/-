@@ -1,8 +1,12 @@
 package น้มุ;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class no_18258 {
@@ -10,63 +14,33 @@ public class no_18258 {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		String read_line = in.readLine();
-		int Q_end = -1;
-		int Q_start = 0;
-		int size = 0;
-		String Q[] = new String[Integer.parseInt(read_line)];
-		for (int i = 0; i < Q.length; i++) {
-			read_line = in.readLine();
-			// push
-			if (read_line.charAt(1) == 'u') {
-				StringTokenizer token = new StringTokenizer(read_line);
-				token.nextToken();
-				Q_end++;
-				size++;
-				Q[Q_end] = token.nextToken();
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int count = Integer.parseInt(in.readLine());
+		Queue<Integer> q = new LinkedList<Integer>();
+		StringTokenizer token;
+		String str;
+		int last = 0;
+		for (int i = 0; i < count; i++) {
+			token = new StringTokenizer(in.readLine());
+			str = token.nextToken();
+			if (str.contains("push")) {
+				last=Integer.parseInt(token.nextToken());
+				q.add(last);
+			} else if (str.equals("pop")) {
+				bw.write((q.isEmpty() ? -1 : q.poll()) +"\n");
+			} else if (str.equals("size")) {
+				bw.write(q.size() + "\n");
+			} else if (str.equals("empty")) {
+				bw.write((q.isEmpty() ? 1 : 0) +"\n");
+			} else if (str.equals("front")) {
+				bw.write((q.isEmpty() ? -1 : q.peek())+"\n");
+			} else if (str.equals("back")) {
+				bw.write((q.isEmpty() ? -1 : last)+"\n");
 			}
-			// pop
-			else if (read_line.equals("pop")) {
-				if (size == 0) {
-					System.out.println(-1);
-				} else {
-					System.out.println(Q[Q_start]);
-					Q_start++;
-					size--;
-				}
-			}
-			// size
-			else if (read_line.equals("size")) {
-				System.out.println(size);
-			}
-			// empty
-			else if (read_line.equals("empty")) {
 
-				if (size == 0) {
-					System.out.println(1);
-				} else {
-					System.out.println(0);
-				}
-
-			}
-			// front
-			else if (read_line.equals("front")) {
-
-				if (size == 0) {
-					System.out.println(-1);
-				} else {
-					System.out.println(Q[Q_start]);
-				}
-			}
-			// back
-			else if (read_line.equals("back")) {
-
-				if (size == 0) {
-					System.out.println(-1);
-				} else {
-					System.out.println(Q[Q_end]);
-				}
-			}
+			bw.flush();
 		}
+		bw.close();
+
 	}
 }
