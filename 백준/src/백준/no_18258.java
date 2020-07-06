@@ -23,7 +23,7 @@ public class no_18258 {
 		for (int i = 0; i < count; i++) {
 			token = new StringTokenizer(in.readLine());
 			str = token.nextToken();
-			if (str.contains("push")) {
+			if (str.equals("push")) {
 				last=Integer.parseInt(token.nextToken());
 				q.add(last);
 			} else if (str.equals("pop")) {
@@ -37,7 +37,6 @@ public class no_18258 {
 			} else if (str.equals("back")) {
 				bw.write((q.isEmpty() ? -1 : last)+"\n");
 			}
-
 			bw.flush();
 		}
 		bw.close();
